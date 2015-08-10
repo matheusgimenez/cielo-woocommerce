@@ -45,6 +45,17 @@ class WC_Cielo {
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
+		// Add WooCommerce Subscriptions support
+		$this->supports = array(
+			'products',
+            'subscriptions',
+            'subscription_cancellation',
+            'subscription_suspension',
+            'subscription_reactivation',
+            'subscription_amount_changes',
+            'subscription_date_changes',
+            'subscription_payment_method_change'
+        );
 		// Checks with WooCommerce and WooCommerce is installed.
 		if ( class_exists( 'WC_Payment_Gateway' ) ) {
 			$this->upgrade();

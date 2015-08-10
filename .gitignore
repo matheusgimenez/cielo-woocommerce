@@ -14,3 +14,5 @@ feature_request.txt
 *.sublime-workspace
 
 .sublime-grunt.cache
+
+sftp-config.json

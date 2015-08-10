@@ -5,6 +5,22 @@
 abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 
 	/**
+	 * Gateway actions.
+	 */
+	public function __construct() {
+		// Add WooCommerce Subscriptions support
+		$this->supports = array(
+			'products',
+            'subscriptions',
+            'subscription_cancellation',
+            'subscription_suspension',
+            'subscription_reactivation',
+            'subscription_amount_changes',
+            'subscription_date_changes',
+            'subscription_payment_method_change'
+        );
+	}
+	/**
 	 * Get payment methods.
 	 *
 	 * @return array
@@ -326,6 +342,10 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 	public function get_installments_html( $order_total = 0, $type = 'select' ) {
 		$html         = '';
 		$installments = apply_filters( 'wc_cielo_max_installments', $this->installments, $order_total );
+
+		if ( class_exists( 'WC_Subscriptions_Cart') && WC_Subscriptions_Cart::cart_contains_subscription() ) {
+			return null;
+		}
 
 		if ( '1' == $installments ) {
 			return $html;
