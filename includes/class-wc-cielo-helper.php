@@ -538,6 +538,10 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 		if ( ! isset( $posted['cielo_credit_installments'] ) && 1 == $this->installments ) {
 			return true;
 		}
+		// Check if has Subscriptions
+		if ( ! isset( $posted['cielo_credit_installments'] ) && class_exists( 'WC_Subscriptions_Cart') && WC_Subscriptions_Cart::cart_contains_subscription() ) {
+			return true;
+		}
 
 		try {
 
